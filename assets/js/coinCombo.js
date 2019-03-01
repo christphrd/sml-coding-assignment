@@ -15,7 +15,7 @@ function coinCombo(total, coins, currentCoin = 0) {
 
 
 
-function coinCombo(coinValues, total, index, combinations = {}, extraCombination = null) {
+function coinCombo(coinValues, total, index = 0, combinations = {}, extraCombination = null) {
     //console.log(index, combinations, extraCombination)
 
     //1. Add combination to list
@@ -52,17 +52,55 @@ function coinCombo(coinValues, total, index, combinations = {}, extraCombination
     return comboCount
 }
 
-function countCombo(total, index) {
-    let coinNames = { 25: "Quarter", 10: "Dime", 5: "Nickel", 1: "Penny" }
-    let coinValues = [25, 10, 5, 1]
+function countCombo(str) {
+    let total = parseStrForTotal(str)
+    //let coinNames = { 25: "Quarter", 10: "Dime", 5: "Nickel", 1: "Penny" }
+    let coinNames = parseStrForCoinNames(str, total)
+    let coinValues = Object.keys(coinNames).sort((a,b) => b - a)
 
     console.log(coinValues.map(value => coinNames[value]).join(` | `))
 
-    return coinCombo(coinValues, total, index)
+    return coinCombo(coinValues, total)
 }
 
-function parseStr(str) {
+let str1 = "Quarter,4,Dime,10,Nickel,20,Penny,100";
+let str2 = "Coin,1.5,Arrowhead,3,Button,150";
 
+function parseStrForTotal(str) {
+    let strArr = str.split(',')
+
+    let numbers = [];
+    for (let i = 1; i < strArr.length; i += 2) {
+        numbers.push(parseInt(strArr[i]))
+    }
+
+    return Math.max(...numbers)
 }
 
-console.log(`Total Count: ${countCombo(100, 0)}`)
+function parseStrForCoinNames(str, total) {
+    let strArr = str.split(',')
+
+    let numbers = [];
+    for (let i = 1; i < strArr.length; i += 2) {
+        numbers.push(Number(strArr[i]))
+    }
+
+    let coinValues = numbers.map(e => total/e)
+    console.log(coinValues)
+
+    let names = [];
+    for (let i = 0; i < strArr.length; i += 2) {
+        names.push(strArr[i])
+    }
+    console.log(names)
+
+    let hash = {};
+    for (let i = 0; i < names.length; i++) {
+        hash[coinValues[i]] = names[i]
+    }
+
+    return hash
+}
+
+console.log(`Total Count: ${countCombo(str1)}`)
+console.log(`Total Count: ${countCombo(str2)}`)
