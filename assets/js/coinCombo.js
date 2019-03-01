@@ -71,7 +71,7 @@ function parseStrForTotal(str) {
 
     let numbers = [];
     for (let i = 1; i < strArr.length; i += 2) {
-        numbers.push(parseInt(strArr[i]))
+        numbers.push(Number(strArr[i]))
     }
 
     return Math.max(...numbers)
