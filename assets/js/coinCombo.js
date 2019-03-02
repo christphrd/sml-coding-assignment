@@ -1,29 +1,10 @@
-/*Recursive count only
-function coinCombo(total, coins, currentCoin = 0) {
-    if (total === 0) return 1;
-
-    if (total < 0) return 0;
-
-    let nCombos = 0;
-    for (let coinIndex = currentCoin; coinIndex < coins.length; coinIndex++) {
-        nCombos += coinCombo(total - coins[coinIndex].value, coins, coinIndex)
-    };
-
-    return nCombos
-}
-*/
-
-
-
 function coinCombo(coinValues, total, index = 0, combinations = {}, extraCombination = null) {
-    //console.log(index, combinations, extraCombination)
-
     //1. Add combination to list
     if (extraCombination !== null) {
         combinations = { ...combinations, ...extraCombination }
     }
 
-    //2. If total is missing
+    //2. If total is no more or went through all coins, coins added up to total and count as combo
     if (total === 0 || (index + 1) === coinValues.length) {
         if ((index + 1) === coinValues.length && total > 0) {
             let key = coinValues[index], newCombo = {}
@@ -54,8 +35,7 @@ function coinCombo(coinValues, total, index = 0, combinations = {}, extraCombina
 
 function countCombo(str) {
     let total = parseStrForTotal(str)
-    //let coinNames = { 25: "Quarter", 10: "Dime", 5: "Nickel", 1: "Penny" }
-    let coinNames = parseStrForCoinNames(str, total)
+    let coinNames = parseStrForCoinNames(str, total) //e.g. { 25: "Quarter", 10: "Dime", 5: "Nickel", 1: "Penny" }
     let coinValues = Object.keys(coinNames).sort((a,b) => b - a)
 
     console.log(coinValues.map(value => coinNames[value]).join(` | `))
@@ -63,44 +43,44 @@ function countCombo(str) {
     return coinCombo(coinValues, total)
 }
 
-let str1 = "Quarter,4,Dime,10,Nickel,20,Penny,100";
-let str2 = "Coin,1.5,Arrowhead,3,Button,150";
-
 function parseStrForTotal(str) {
     let strArr = str.split(',')
-
+    
     let numbers = [];
     for (let i = 1; i < strArr.length; i += 2) {
         numbers.push(Number(strArr[i]))
     }
-
+    
     return Math.max(...numbers)
 }
 
 function parseStrForCoinNames(str, total) {
     let strArr = str.split(',')
-
+    
     let numbers = [];
     for (let i = 1; i < strArr.length; i += 2) {
         numbers.push(Number(strArr[i]))
     }
-
+    
     let coinValues = numbers.map(e => total/e)
     console.log(coinValues)
-
+    
     let names = [];
     for (let i = 0; i < strArr.length; i += 2) {
         names.push(strArr[i])
     }
     console.log(names)
-
+    
     let hash = {};
     for (let i = 0; i < names.length; i++) {
         hash[coinValues[i]] = names[i]
     }
-
-    return hash
+    
+    return hash //e.g. { 25: "Quarter", 10: "Dime", 5: "Nickel", 1: "Penny" }
 }
+
+let str1 = "Quarter,4,Dime,10,Nickel,20,Penny,100";
+let str2 = "Coin,1.5,Arrowhead,3,Button,150";
 
 console.log(`Total Count: ${countCombo(str1)}`)
 console.log(`Total Count: ${countCombo(str2)}`)
