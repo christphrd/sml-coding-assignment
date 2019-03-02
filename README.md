@@ -41,12 +41,6 @@ This project can:
 ### How to use?
 
 #### Option 1
-Type: `String`  
-Default: `'default value'`
-
-State what an argument does and how you can use it. If needed, you can provide
-an example below.
-
 Go to the Node REPL.
 
 ```bash
@@ -57,6 +51,8 @@ Then load the JavaScript file from the current working directory.
 ```node
 .load assets/js/coinCombo.js
 ```
+
+You should see two different lists.
 
 Now you can use the JavaScript function `countCombo`
 
@@ -69,7 +65,7 @@ let str1 = "Quarter,4,Dime,10,Nickel,20,Penny,100";
 let str2 = "Coin,1.5,Arrowhead,3,Button,150";
 ```
 
-When the JavaScript file loads, it invokes the function with those strings.
+When the JavaScript file loads, it invokes the function with those strings. (The two lists mentioned previously.)
 
 ```
 countCombo(str1)
