@@ -64,13 +64,11 @@ function parseStrForTotal(str) {
 function parseStrForCoinNames(str, total) {
     let strArr = str.split(',')
     
-    let numbers = [];
+    let coinValues = [];
     for (let i = 1; i < strArr.length; i += 2) {
-        numbers.push(Number(strArr[i]))
+        coinValues.push((total / Number(strArr[i])))
     }
-    
-    let coinValues = numbers.map(e => total/e)
-    
+        
     let names = [];
     for (let i = 0; i < strArr.length; i += 2) {
         names.push(strArr[i])
