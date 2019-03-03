@@ -4,10 +4,10 @@ function coinCombo(coinValues, total, index = 0, combinations = {}, extraCombina
         combinations = { ...combinations, ...extraCombination }
     }
 
-    //3. If coins add up to total or on the last/lowest coin
-    if (total === 0 || (index + 1) === coinValues.length) {
+    //3. If on the last/lowest coin or coins add up to total
+    if ((index + 1) === coinValues.length || total === 0) {
         if ((index + 1) === coinValues.length && total > 0) {
-            //3a. Let the last coin finish off the rest
+            //3a. Let the last coin finish off the rest of the total
             let key = coinValues[index], newCombo = {}
             newCombo[key] = total
             combinations = { ...combinations, ...newCombo }
