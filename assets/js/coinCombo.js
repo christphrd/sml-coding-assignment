@@ -8,16 +8,16 @@ function coinCombo(coinValues, total, indexOfCoinValueForCombo = 0, combinationA
     if ((indexOfCoinValueForCombo + 1) === coinValues.length || total === 0) {
         if ((indexOfCoinValueForCombo + 1) === coinValues.length && total > 0) {
             //3a. Let the last coin finish off the rest of the total
-            let key = coinValues[indexOfCoinValueForCombo], newCombo = {}
-            newCombo[key] = total
+            let lastCoin = coinValues[indexOfCoinValueForCombo], newCombo = {}
+            newCombo[lastCoin] = total
             combinationAddingUpToTotal = { ...combinationAddingUpToTotal, ...newCombo }
             indexOfCoinValueForCombo += 1
         }
         //a OR b
         while (indexOfCoinValueForCombo < coinValues.length) {
             //3b. Finish off the remaining coins. The earlier coins added up to the total. The rest are zero.
-            let key = coinValues[indexOfCoinValueForCombo], newCombo = {}
-            newCombo[key] = 0
+            let remainingCoin = coinValues[indexOfCoinValueForCombo], newCombo = {}
+            newCombo[remainingCoin] = 0
             combinationAddingUpToTotal = { ...combinationAddingUpToTotal, ...newCombo }
 
             indexOfCoinValueForCombo += 1
