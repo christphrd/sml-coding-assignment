@@ -54,7 +54,7 @@ Then load the JavaScript file from the current working directory.
 
 You should see two different lists.
 
-Now you can use the JavaScript function `countCombo`
+Also, you can now use the JavaScript function `countCombo`
 
 Pass in an argument for the function. The argument is a comma delimited list which specifies the name of each denomination along with the number required of that denomination to reach our target sum.
 
